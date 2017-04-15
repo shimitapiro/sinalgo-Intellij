@@ -23,24 +23,40 @@ public class TreeNode extends Node {
 	@Override
 	public void checkRequirements() throws WrongConfigurationException {
 	}
+	boolean initRoot = false;
 
 	@Override
 	public void handleMessages(Inbox inbox) {
-		while(inbox.hasNext()) {
-			Message m = inbox.next();
-			if(m instanceof MarkMessage) {
-				if(parent == null || !inbox.getSender().equals(parent)) {
-					continue;// don't consider mark messages sent by children
-				}
-				this.setColor(Color.BLUE);
-				// forward the message to all children
+		if (parent == null && !initRoot){
+			initRoot = true;
+			MarkMessage msg = new MarkMessage();
+			this.broadcast(msg);
+			this.setColor(Color.BLUE);
+		}else {
+			while(inbox.hasNext()) {
+				Message m = inbox.next();
+				if(m instanceof MarkMessage) {
+					if(parent == null || !inbox.getSender().equals(parent)) {
+						continue;// don't consider mark messages sent by children
+					}
+					this.setColor(Color.BLUE);
+					// forward the message to all children
 
-				MarkMessage msg = new MarkMessage();
-				MessageTimer timer = new MessageTimer(msg);
-				timer.startRelative(5000, this);
+					for(Edge e : outgoingConnections) {
+						if(!e.endNode.equals(parent)) { // don't send it to the parent
+							send(m, e.endNode);
+						}
+					}
+//					MarkMessage msg = new MarkMessage();
+//					MessageTimer timer = new MessageTimer(msg);
+//					timer.startRelative(5000, this);
+				}
 			}
+
 		}
+
 	}
+
 
 	@Override
 	public void init() {
@@ -51,11 +67,7 @@ public class TreeNode extends Node {
 
 	@Override
 	public void neighborhoodChange() {
-		//If i'm the parent vroadcast to all my children flood
-		if (parent == null ){
-			MarkMessage msg = new MarkMessage();
-			this.broadcast(msg);
-		}
+
 	}
 
 	@Override

@@ -71,7 +71,8 @@ import sinalgo.tools.Tools;
  * added to the GUI. 
  */
 public class CustomGlobal extends AbstractCustomGlobal{
-	
+
+
 	/* (non-Javadoc)
 	 * @see runtime.AbstractCustomGlobal#hasTerminated()
 	 */
@@ -202,5 +203,9 @@ public class CustomGlobal extends AbstractCustomGlobal{
 		// Repaint the GUI as we have added some nodes
 		Tools.repaintGUI();
 	}
-	
+
+	public void preRun() {
+		// A method called at startup, before the first round is executed.
+		buildTree(3, 400);
+	}
 }
