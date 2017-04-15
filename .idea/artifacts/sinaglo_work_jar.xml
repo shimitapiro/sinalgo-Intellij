@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="sinaglo-work:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/sinaglo_work_jar</output-path>
+    <root id="archive" name="sinaglo-work.jar">
+      <element id="module-output" name="sinaglo-work" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/jdom.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

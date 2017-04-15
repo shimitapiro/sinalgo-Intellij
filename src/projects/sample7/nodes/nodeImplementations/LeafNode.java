@@ -1,9 +1,9 @@
-package projects.sample6.nodes.nodeImplementations;
+package projects.sample7.nodes.nodeImplementations;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-import projects.sample6.nodes.messages.MarkMessage;
+import projects.sample7.nodes.messages.MarkMessage;
 
 import sinalgo.configuration.WrongConfigurationException;
 import sinalgo.gui.transformation.PositionTransformation;
@@ -13,7 +13,7 @@ import sinalgo.nodes.messages.Message;
 /**
  * A node on the bottom of the tree
  */
-public class LeafNode extends projects.sample6.nodes.nodeImplementations.TreeNode {
+public class LeafNode extends projects.sample7.nodes.nodeImplementations.TreeNode {
 
 	// A counter that may be reset by the user
 	public static int smallIdCounter = 0;

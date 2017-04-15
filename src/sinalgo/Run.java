@@ -111,7 +111,7 @@ public class Run {
 				cmds.add(args[i]);
 			}
 			
-			// reassemble the entire command for error-messages
+			// reassemble the entire command for error-mes`ges
 			for(String s : cmds) {
 				command += s + " ";
 			}

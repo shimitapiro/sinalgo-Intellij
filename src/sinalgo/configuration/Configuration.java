@@ -944,7 +944,7 @@ public class Configuration {
 	/**
 	 * The directory where the class files are located. 
 	 */
-	public static final String binaryDir = "binaries/bin";
+	public static final String binaryDir = "out/production/sinaglo-work";
 	
 	/**
 	 * The directory where the images are stored.
