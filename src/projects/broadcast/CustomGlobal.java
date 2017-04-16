@@ -34,14 +34,14 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package projects.sample7;
+package projects.broadcast;
 
 
 import java.awt.Color;
 import java.util.Vector;
 
-import projects.sample7.nodes.nodeImplementations.LeafNode;
-import projects.sample7.nodes.nodeImplementations.TreeNode;
+import projects.broadcast.nodes.nodeImplementations.LeafNode;
+import projects.broadcast.nodes.nodeImplementations.TreeNode;
 
 import sinalgo.configuration.Configuration;
 import sinalgo.nodes.Node;
@@ -206,6 +206,6 @@ public class CustomGlobal extends AbstractCustomGlobal{
 
 	public void preRun() {
 		// A method called at startup, before the first round is executed.
-		buildTree(3, 400);
+		buildTree(3, 30);
 	}
 }

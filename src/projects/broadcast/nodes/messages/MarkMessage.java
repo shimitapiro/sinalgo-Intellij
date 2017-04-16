@@ -1,4 +1,4 @@
-package projects.sample7.nodes.messages;
+package projects.broadcast.nodes.messages;
 
 import sinalgo.nodes.messages.Message;
 

@@ -1,12 +1,13 @@
-package projects.sample7.nodes.nodeImplementations;
+package projects.broadcast.nodes.nodeImplementations;
 
 
 
-import java.awt.Color;
+import java.awt.*;
 
 import projects.defaultProject.nodes.timers.MessageTimer;
-import projects.sample7.nodes.messages.MarkMessage;
+import projects.broadcast.nodes.messages.MarkMessage;
 import sinalgo.configuration.WrongConfigurationException;
+import sinalgo.gui.transformation.PositionTransformation;
 import sinalgo.nodes.Node;
 import sinalgo.nodes.edges.Edge;
 import sinalgo.nodes.messages.Inbox;
@@ -18,7 +19,7 @@ import sinalgo.nodes.messages.Message;
  */
 public class TreeNode extends Node {
 
-	public projects.sample7.nodes.nodeImplementations.TreeNode parent = null; // the parent in the tree, null if this node is the root
+	public projects.broadcast.nodes.nodeImplementations.TreeNode parent = null; // the parent in the tree, null if this node is the root
 	
 	@Override
 	public void checkRequirements() throws WrongConfigurationException {
@@ -39,22 +40,28 @@ public class TreeNode extends Node {
 					if(parent == null || !inbox.getSender().equals(parent)) {
 						continue;// don't consider mark messages sent by children
 					}
-					this.setColor(Color.BLUE);
+					this.setColor(Color.GREEN);
 					// forward the message to all children
 
 					for(Edge e : outgoingConnections) {
 						if(!e.endNode.equals(parent)) { // don't send it to the parent
-							send(m, e.endNode);
+//							send(m, e.endNode);
+							MarkMessage msg = new MarkMessage();
+
+							MessageTimer timer = new MessageTimer(msg,e.endNode);
+							timer.startRelative(50, this);
 						}
 					}
-//					MarkMessage msg = new MarkMessage();
-//					MessageTimer timer = new MessageTimer(msg);
-//					timer.startRelative(5000, this);
+
 				}
 			}
 
 		}
 
+	}
+
+	public void draw(Graphics g, PositionTransformation pt, boolean highlight){
+		super.drawNodeAsDiskWithText(g, pt, highlight, "", 15, Color.YELLOW);
 	}
 
 
