@@ -225,10 +225,10 @@
 
 	</Framework>
 	<Custom>
-<MessageTransmission ConstantTime="50"/>
+<MessageTransmission ConstantTime="1"/>
 	
 <Node defaultSize="10" />
 <GeometricNodeCollection rMax="1000000"/>
-									</Custom>
+										</Custom>
 </Document>
 
