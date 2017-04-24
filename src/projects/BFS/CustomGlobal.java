@@ -47,6 +47,7 @@ import projects.BFS.nodes.nodeImplementations.TreeNode;
 
 import sinalgo.configuration.Configuration;
 import sinalgo.nodes.Node;
+import sinalgo.nodes.edges.Edge;
 import sinalgo.runtime.AbstractCustomGlobal;
 import sinalgo.runtime.Runtime;
 import sinalgo.tools.Tools;
@@ -98,8 +99,29 @@ public class CustomGlobal extends AbstractCustomGlobal{
 		}
 		buildTree(vertexts);
 	}
-	
 
+
+	public void postRound() {
+		boolean allHaveParent = true;
+		for (int i=0;i<treeNodes.size();i++){
+			if (!treeNodes.get(i).hasParent()){
+				allHaveParent = false;
+				break;
+			}
+		}
+		if (allHaveParent){
+			for (int i=0;i<treeNodes.size();i++){
+				for (Edge e : treeNodes.get(i).outgoingConnections) {
+					if (((TreeNode)e.startNode).getParent() == e.endNode ||
+							((TreeNode)e.endNode).getParent() == e.startNode){
+						e.removeEdgeFromGraph();
+					}
+				}
+
+			}
+			Tools.repaintGUI();
+		}
+	}
 
 	
 	// a vector of all non-leaf nodes
@@ -142,22 +164,23 @@ public class CustomGlobal extends AbstractCustomGlobal{
 				ln.setPosition((i+1)*dx, posY, 0);
 				ln.finishInitializationWithDefaultModels(true);
 				allVertexes.get(j).add(ln);
+				treeNodes.add(ln);
 			}
 			posY -= 100;
 		}
-		int Low = 10;
+		int Low = 80;
 		int High = 100;
 		for (int j=0;j<10;j++) {
 			// create the leaves (incl. assigning their position)
 			for (int i = 0; i < vertexsDivided; i++) {
 
-				boolean didAnEdge = false;
+				int didAnEdge = 0;
 
 				int matchConnection = r.nextInt(High-Low) + Low;
 				if (matchConnection > 70) {
 					if (allVertexes.size() > (j + 1)) {//above
 						allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j + 1).get(i));
-						didAnEdge = true;
+						didAnEdge ++;
 					}
 				}
 
@@ -165,61 +188,48 @@ public class CustomGlobal extends AbstractCustomGlobal{
 				if (matchConnection > 70) {
 					if ((j - 1) > 0) {//lower
 						allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j - 1).get(i));
-						didAnEdge = true;
+						didAnEdge ++;
 					}
 				}
 				matchConnection = r.nextInt(High-Low) + Low;
 				if (matchConnection > 70) {
 					if ((j - 1) > 0 && allVertexes.get(j).size() > (i + 1)) {//lower left
 						allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j - 1).get(i + 1));
-						didAnEdge = true;
+						didAnEdge ++;
 					}
 				}
 				matchConnection = r.nextInt(High-Low) + Low;
 				if (matchConnection > 70) {
 					if ((j - 1) > 0 && (i - 1) >= 0) {//lower left
 						allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j - 1).get(i - 1));
-						didAnEdge = true;
-					}
-				}
-				matchConnection = r.nextInt(High-Low) + Low;
-				if (matchConnection > 70) {
-					if (allVertexes.size() > (j + 1) && (i - 1) >= 0) {//lower left
-						allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j + 1).get(i - 1));
-						didAnEdge = true;
-					}
-				}
-				matchConnection = r.nextInt(High-Low) + Low;
-				if (matchConnection > 70) {
-					if (allVertexes.size() > (j + 1) && allVertexes.get(j).size() > (i + 1)) {//lower left
-						allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j + 1).get(i + 1));
-						didAnEdge = true;
+						didAnEdge ++;
 					}
 				}
 
-				if( !didAnEdge ){
+
+				if( didAnEdge < 1 ){
 					if (allVertexes.get(j).size() > (i + 1)) {  //right
 						allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j).get(i + 1));
-						didAnEdge = true;
+						didAnEdge ++;
 					}
 
-					if (!didAnEdge && (i - 1) >= 0) {//left
+					if ((i - 1) >= 0) {//left
 						allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j).get(i - 1));
-						didAnEdge = true;
+						didAnEdge ++;
 					}
 				}else {
 					matchConnection = r.nextInt(High-Low) + Low;
 					if (matchConnection > 70) {
 						if (allVertexes.get(j).size() > (i + 1)) {  //right
 							allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j).get(i + 1));
-							didAnEdge = true;
+							didAnEdge ++;
 						}
 					}
 					matchConnection = r.nextInt(High-Low) + Low;
 					if (matchConnection > 70) {
 						if ((i - 1) >= 0) {//left
 							allVertexes.get(j).get(i).addConnectionTo(allVertexes.get(j).get(i - 1));
-							didAnEdge = true;
+							didAnEdge ++;
 						}
 					}
 

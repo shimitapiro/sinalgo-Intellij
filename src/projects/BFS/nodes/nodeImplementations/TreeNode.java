@@ -3,6 +3,7 @@ package projects.BFS.nodes.nodeImplementations;
 
 
 import java.awt.*;
+import java.lang.reflect.Field;
 
 import projects.defaultProject.nodes.timers.MessageTimer;
 import projects.BFS.nodes.messages.MarkMessage;
@@ -35,6 +36,14 @@ public class TreeNode extends Node {
 		return false;
 	}
 
+	public TreeNode getParent() {
+		return parent;
+	}
+
+	public void setParent(TreeNode parent) {
+		this.parent = parent;
+	}
+
 	@Override
 	public void handleMessages(Inbox inbox) {
 		if (Initiator){
@@ -43,6 +52,7 @@ public class TreeNode extends Node {
 			msg.setSender(this);
 			msg.setLayer(0);
 			this.broadcast(msg);
+			this.parent = this;
 			this.setColor(Color.GREEN);
 		}else {
 			while(inbox.hasNext()) {
@@ -52,11 +62,9 @@ public class TreeNode extends Node {
 					if(((MarkMessage) m).getLayer() < layer) {
 						System.out.println("Layer from = "+((MarkMessage) m).getLayer() +"My Layer ="+layer);
 
-						if ( (((MarkMessage) m).getLayer() % 2) == 0) {
-							this.setColor(Color.GREEN);
-						} else if ( (((MarkMessage) m).getLayer() % 2) == 1) {
-							this.setColor(Color.PINK);
-						}
+
+						this.setColor(Color.GREEN);
+
 
 
 						MarkMessage msg = new MarkMessage();
@@ -65,15 +73,16 @@ public class TreeNode extends Node {
 						msg.setLayer(layer);
 						parent = ((MarkMessage) m).getSender();
 
-						for (Edge e : outgoingConnections) {
-							if (!e.endNode.equals(parent)) { // don't send it to the parent
-								Color color = e.defaultColor;
-								this.send(msg, e.endNode);
-								e.defaultColor = color;
-							} else {
-								e.defaultColor = Color.GREEN;
 
+						for (Edge e : outgoingConnections) {
+
+							if (!e.endNode.equals(parent)) { // don't send it to the parent
+								this.send(msg, e.endNode);
 							}
+//							else {
+//								e.defaultColor = Color.GREEN;
+//
+//							}
 						}
 					}
 
