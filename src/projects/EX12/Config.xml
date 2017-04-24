@@ -170,33 +170,6 @@
 		<nodeCollection3D value="sinalgo.runtime.nodeCollection.Geometric3DNodeCollection" />
 
 		<!--***********************************************************************-->
-		<!--  Export Settings                                                      -->
-		<!--***********************************************************************-->
-		<!--EPS 2 PDF command: This is the command that is used to convert an EPS file  into a PDF file. You can use the following parameters:   %s is the complete path from the root folder of the      framework to the SOURCE file (the eps)   %t is the complete path from the root folder of the      framework to the TARGET file (the pdf) These placeholders are set by the framework. Example:   'epstopdf %s')-->
-		<epsToPdfCommand value="epstopdf %s" />
-
-		<!--Enables the drawing of the bounding box of the deployment to EPS/PDF.-->
-		<epsDrawDeploymentAreaBoundingBox value="true" />
-
-		<!--Indicates whether the background in the ps should be  white or gray.  The gray version is easier to understand (especially in 3D) but the white one should be more useful to be imported in reports.-->
-		<epsDrawBackgroundWhite value="true" />
-
-		<!--***********************************************************************-->
-		<!--  Animation Settings                                                   -->
-		<!--***********************************************************************-->
-		<!--Draw an envelope for each message that is being sent-->
-		<showMessageAnimations value="false" />
-
-		<!--Width of the envelope (when the message animation is enabled)-->
-		<messageAnimationEnvelopeWidth value="30.0" />
-
-		<!--Height of the envelope (when the message animation is enabled)-->
-		<messageAnimationEnvelopeHeight value="20.0" />
-
-		<!--Color of the envelope (when the message animation is enabled)-->
-		<messageAnimationEnvelopeColor value="r=255,g=255,b=0" />
-
-		<!--***********************************************************************-->
 		<!--  Diverse Settings                                                     -->
 		<!--***********************************************************************-->
 		<!--Show hints on how to further optimize the simulation when some parameters seem not to be set optimally.-->
@@ -223,12 +196,21 @@
 		<!--The dsfault value of the rounds field.-->
 		<defaultRoundNumber value="1" />
 
+		<!--EPS 2 PDF command: This is the command that is used to convert an EPS file  into a PDF file. You can use the following parameters:   %s is the complete path from the root folder of the      framework to the SOURCE file (the eps)   %t is the complete path from the root folder of the      framework to the TARGET file (the pdf) These placeholders are set by the framework. Example:   'epstopdf %s')-->
+		<epsToPdfCommand value="epstopdf %s" />
+
+		<!--Enables the drawing of the bounding box of the deployment to EPS/PDF.-->
+		<epsDrawDeploymentAreaBoundingBox value="true" />
+
+		<!--Indicates whether the background in the ps should be  white or gray.  The gray version is easier to understand (especially in 3D) but the white one should be more useful to be imported in reports.-->
+		<epsDrawBackgroundWhite value="true" />
+
 	</Framework>
 	<Custom>
 <MessageTransmission ConstantTime="1"/>
 	
 <Node defaultSize="10" />
 <GeometricNodeCollection rMax="1000000"/>
-											</Custom>
+			</Custom>
 </Document>
 
