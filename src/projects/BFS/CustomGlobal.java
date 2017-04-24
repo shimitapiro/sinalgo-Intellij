@@ -114,12 +114,27 @@ public class CustomGlobal extends AbstractCustomGlobal{
 				for (Edge e : treeNodes.get(i).outgoingConnections) {
 					if (((TreeNode)e.startNode).getParent() == e.endNode ||
 							((TreeNode)e.endNode).getParent() == e.startNode){
-						e.removeEdgeFromGraph();
+						e.defaultColor = Color.ORANGE;
+					}else {
+						e.defaultColor = Color.WHITE;
+
 					}
 				}
 
 			}
 			Tools.repaintGUI();
+
+		}else {
+			boolean hasInit = false;
+			for (int i=0;i<treeNodes.size();i++) {
+				if (treeNodes.get(i).Initiator) {
+					hasInit = true;
+					break;
+				}
+			}
+			if (!hasInit){
+				Tools.showMessageDialog("Please Right click on a node and choose it as an administrator");
+			}
 		}
 	}
 
@@ -139,7 +154,6 @@ public class CustomGlobal extends AbstractCustomGlobal{
 	 */
 	public void buildTree(int vertexes) {
 
-		Tools.showMessageDialog("Building a Graph with "+vertexes +" Vertexes.");
 
 		
 		// remove all nodes (if any)

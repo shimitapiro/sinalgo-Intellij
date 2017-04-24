@@ -25,7 +25,8 @@ public class TreeNode extends Node {
 	public void checkRequirements() throws WrongConfigurationException {
 	}
 
-	boolean Initiator = false;
+	public boolean Initiator = false;
+	private boolean didOneRound = false;
 	TreeNode parent = null;
 	int layer = Integer.MAX_VALUE;
 
@@ -46,8 +47,8 @@ public class TreeNode extends Node {
 
 	@Override
 	public void handleMessages(Inbox inbox) {
-		if (Initiator){
-			Initiator = false;
+		if (Initiator && !didOneRound ){
+			didOneRound = true;
 			MarkMessage msg = new MarkMessage();
 			msg.setSender(this);
 			msg.setLayer(0);
